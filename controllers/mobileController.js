@@ -1,10 +1,13 @@
 import Samsung from "../model/Mobiles.js";
 
-export const getData = (req, res) => {};
-export const postData = (req, res) => {
+export const getData = async (req, res) => {
+  const da = await Samsung.find();
+  ewa.json(da);
+};
+export const postData = async (req, res) => {
   const model = new Samsung(req.body);
-  model.save();
-  res.json(model);
+  const neww = await model.save();
+  res.json(neww);
 };
 export const putData = (req, res) => {
   res.send("updating data controller");
