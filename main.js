@@ -2,9 +2,10 @@ import express from "express";
 import appleRoute from "./routes/apple.js";
 import samsungRoute from "./routes/samsung.js";
 import mongoose from "mongoose";
+// import body from "body-parser";
 
 const app = express();
-
+app.use(express.json());
 app.use("/mobile/apple", appleRoute);
 app.use("/mobile/samsung", samsungRoute);
 

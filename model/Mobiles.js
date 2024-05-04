@@ -6,6 +6,6 @@ const mobileSchema = new Schema({
   price: Number,
 });
 
-const samsung = mongoose.model("samsung", mobileSchema);
+const Samsung = mongoose.model("Samsung", mobileSchema);
 // console.log(samsung)
-export default samsung;
+export default Samsung;
