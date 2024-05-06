@@ -1,34 +1,21 @@
-const express = require("express");
-const path = require("path");
+import express from "express";
+import appleRoute from "./routes/apple.js";
+import samsungRoute from "./routes/samsung.js";
+import mongoose from "mongoose";
+// import body from "body-parser";
+
 const app = express();
+app.use(express.json());
+app.use("/mobile/apple", appleRoute);
+app.use("/mobile/samsung", samsungRoute);
 
-const jsondata = {
-  Whiskey: "200",
-  rum: "100",
-};
-let dir = path.dirname("C:\\UsersADMINDocumentsProjectsExpress_blr");
-dir = "C:\\UsersADMINDocumentsProjectsExpress_blrindex.html";
-console.log(dir);
-
-let imag = __dirname;
-imag = path.join(imag, "tree.jpg");
-
-let jso = __dirname;
-jso = path.join(jso, "package.json");
-// console.log(dir);
-
-app.get("/", (req, res) => res.send("<h1>Shopping mall</h1>"));
-app.get("/kfc", (req, res) => res.send("kfc shop"));
-app.get("/mrp", (req, res) => res.json(jsondata));
-app.get("/html", (req, res) => {
-  res.sendFile(dir);
-});
-app.get("/image", (req, res) => {
-  res.sendFile(imag);
-});
-app.get("/json", (req, res) => {
-  res.sendFile(jso);
-});
+// console.log(mongoose);
+mongoose
+  .connect(
+    "mongodb+srv://donic73471:tenny010@cluster0.9shmgxb.mongodb.net/?retryWrites=true&w=majority&appName=Cluster0"
+  )
+  .then(() => console.log("db connected"))
+  .catch((err) => console.log(err));
 
 app.listen(1010, () => {
   console.log("server connected");
