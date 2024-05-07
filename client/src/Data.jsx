@@ -3,6 +3,11 @@ import axios from "axios";
 
 const Data = () => {
   let [data, setData] = useState([]);
+  let [mobileData, setMobileData] = useState({
+    brand: "",
+    model: "",
+    price: "",
+  });
   useEffect(() => {
     fetchData();
   }, [data]);
@@ -19,6 +24,22 @@ const Data = () => {
     );
     fetchData();
   }
+  function changing(e) {
+    setMobileData({
+      ...mobileData,
+      [e.target.name]: e.target.value,
+    });
+  }
+
+  async function sendData(e) {
+    e.preventDefault();
+    await axios.post(
+      "https://mobile-api-eo1w.onrender.com/mobile/samsung/",
+      mobileData
+    );
+    setMobileData({ brand: "", model: "", price: "" });
+  }
+
   return (
     <div>
       {data.map((ele) => (
@@ -27,6 +48,32 @@ const Data = () => {
           <button onClick={() => deleteData(ele._id)}>Delete</button>
         </li>
       ))}
+
+      <h1>Add Mobiles</h1>
+      <form onSubmit={sendData}>
+        <input
+          type="text"
+          value={mobileData.brand}
+          name="brand"
+          onChange={changing}
+          placeholder="enter brand name"
+        />
+        <input
+          type="text"
+          value={mobileData.model}
+          name="model"
+          onChange={changing}
+          placeholder="enter model name"
+        />
+        <input
+          type="text"
+          value={mobileData.price}
+          name="price"
+          onChange={changing}
+          placeholder="enter price"
+        />
+        <button>Add Data</button>
+      </form>
     </div>
   );
 };
