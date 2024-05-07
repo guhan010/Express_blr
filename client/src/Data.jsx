@@ -31,12 +31,30 @@ const Data = () => {
     });
   }
 
-  async function sendData(e) {
+  // async function sendData(e) {
+  //   e.preventDefault();
+  //   await axios.post(
+  //     "https://mobile-api-eo1w.onrender.com/mobile/samsung/",
+  //     mobileData
+  //   );
+  //   setMobileData({ brand: "", model: "", price: "" });
+  // }
+
+  function updateButton(item) {
+    setMobileData({
+      brand: item.brand,
+      model: item.model,
+      price: item.price,
+      _id: item._id,
+    });
+  }
+  async function updateData(e) {
     e.preventDefault();
-    await axios.post(
-      "https://mobile-api-eo1w.onrender.com/mobile/samsung/",
+    await axios.put(
+      `https://mobile-api-eo1w.onrender.com/mobile/samsung/${mobileData._id}`,
       mobileData
     );
+    fetchData();
     setMobileData({ brand: "", model: "", price: "" });
   }
 
@@ -45,12 +63,13 @@ const Data = () => {
       {data.map((ele) => (
         <li key={ele._id}>
           {ele.brand} - {ele.model} - {ele.price}{" "}
+          <button onClick={() => updateButton(ele)}>Update</button>
           <button onClick={() => deleteData(ele._id)}>Delete</button>
         </li>
       ))}
 
       <h1>Add Mobiles</h1>
-      <form onSubmit={sendData}>
+      <form onSubmit={updateData}>
         <input
           type="text"
           value={mobileData.brand}
